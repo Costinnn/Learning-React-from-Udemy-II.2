@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import {
   signInWithGooglePopup,
   singInAuthUserWithEmailAndPassword,
@@ -22,19 +22,17 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     await signInWithGooglePopup();
-   
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const {user} = await singInAuthUserWithEmailAndPassword(
+      const { user } = await singInAuthUserWithEmailAndPassword(
         email,
         password
       );
       resetFormFields();
-      
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":
@@ -79,7 +77,11 @@ const SignInForm = () => {
         />
         <div className="buttons-container">
           <Button type="submit">Sign Up</Button>
-          <Button type='button' buttonType="google" onClick={signInWithGoogle}>
+          <Button
+            type="button"
+            buttonType={BUTTON_TYPE_CLASSES.google}
+            onClick={signInWithGoogle}
+          >
             Google sign in
           </Button>
         </div>
